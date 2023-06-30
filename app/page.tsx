@@ -1,129 +1,118 @@
+"use client";
 import Image from 'next/image'
+import { useState } from "react";
+
 
 export default function Home() {
+
+  const [task, setTask] = useState('');
+  const [search, setSearch] = useState('');
+  const [todos, setTodos] = useState([]);
+
+  const handleTaskChange = (e) => {
+    e.preventDefault();
+    setTask(e.target.value);
+  };
+
+  const handleSearchChange = (e) => {
+    e.preventDefault();
+    setSearch(e.target.value);
+  };
+
+  const handleAddTask = (e) => {
+    e.preventDefault();
+    if (task.trim() !== '') {
+      setTodos([...todos, { task, completed: false }]);
+      setTask('');
+    }
+  };
+
+  const handleCompleteTask = (index) => {
+    const updatedTodos = [...todos];
+    updatedTodos[index].completed = true;
+    setTodos(updatedTodos);
+  };
+
+  const handleDeleteTask = (index) => {
+    const updatedTodos = todos.filter((_, i) => i !== index);
+    setTodos(updatedTodos);
+  };
+
+  const filteredTodos = todos.filter((todo) =>
+    todo.task.toLowerCase().includes(search.toLowerCase())
+  );
+
   return (
     <main>
-      {/* <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div> */}
-      <div>
-        <h1>Backed by the Best</h1>
-        <h2>Wealthup is backed and supported by</h2>
+      <div className="text-center text-[#FFFFFF] font-poppins bg-gradient-to-br from-[#159C98] to-[#138F9E]">
+        <h1 className='text-[48px]/[80px] font-semibold'>Backed by the best</h1>
+        <h2 className='text-[24px]/[10px] font-extralight pt-2'>Wealthup is backed and supported by</h2>
+        <div className='flex justify-center py-6'>
         <Image
               src="/13.png"
               alt="Logo"
-              className="dark:invert"
-              width={881}
+              width={600}
               height={164}
-              priority
             />
+        </div>
       </div>
 
-      <div>
-        <h1>Transforming Lives- Financially!</h1>
+      <div className='flex-col bg-[#0A5783] text-[#FFFFFF] font-poppins'>
+        <h1 className=' pt-3 text-center text-[40px]/[60px] font-extrabold'>Transforming Lives- Financially!</h1>
+        <div className='flex justify-center items-center'>
+          <div className=' flex items-start mx-10'>
+            <Image src="/Pic.png" alt="User" className='mr-5' width={100} height={100} />
+            <div>
+              <h1>Simran Surur</h1>
+              <h1>Journalist</h1>
+              <h1>The Print, Gurugram</h1>
+              <p className=' max-w-[416px]'>"I was afraid to learn about investments and savings because it seemed to fly over my head, but Ankit was extremely patient and walked me through everything... I now feel more confident to handle my own money."</p>
+            </div>
+          </div>
+          <Image src="/11.png" alt="User" width={380} height={380} />
+        </div>
       </div>
 
-      {/* <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
+      <div className=' flex justify-center bg-gradient-to-br from-[#159C98] to-[#138F9E]'>
+        <Image src="/logos.png" alt="logos" width={1200} height={163} />
+      </div>
+
+      <div className="text-center my-4">
+      <h1 className='text-[48px]/[80px] font-semibold mb-5'>Todo App</h1>
+      <div className='flex justify-center'>
+      <form onSubmit={handleAddTask}>
+        <input
+          className="border rounded py-2 px-3 text-gray-700 focus:outline-none "
+          type="text"
+          value={task}
+          onChange={handleTaskChange}
+          placeholder="Enter a new task"
+        />
+        <button className='ml-4 bg-[#FF7518] text-white rounded border-2 border-[#BEC3C6] px-2 py-2' type='submit'>Add Task</button>
+      </form>
+      <div className='mx-5'>
+        <input
+        className="border rounded py-2 px-3 text-gray-700 focus:outline-none "
+          type="text"
+          value={search}
+          onChange={handleSearchChange}
+          placeholder="Search tasks"
         />
       </div>
-
-      <div className="mb-32 grid text-center lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore the Next.js 13 playground.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div> */}
+      </div>
+      <ul className='my-5'>
+        {filteredTodos.map((todo, index) => (
+          <li key={index} className='py-1 my-1' >
+            <div className='flex justify-center'>
+            <h1 style={{ backgroundColor: todo.completed ? '#808080' : '#FFFFFF' }}>{todo.task}</h1>
+            <button className='ml-3 bg-[#FF7518] text-white rounded border-2 border-[#BEC3C6] px-1 py-1' onClick={() => handleCompleteTask(index)}>Complete</button>
+            <button className='ml-1 bg-[#FF7518] text-white rounded border-2 border-[#BEC3C6] px-1 py-1' onClick={() => handleDeleteTask(index)}>Delete</button>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+      
     </main>
   )
 }
