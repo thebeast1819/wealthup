@@ -45,21 +45,21 @@ export default function Home() {
   return (
     <main>
       <div className="text-center text-[#FFFFFF] font-poppins bg-gradient-to-br from-[#159C98] to-[#138F9E]">
-        <h1 className='text-[48px]/[80px] font-semibold'>Backed by the best</h1>
-        <h2 className='text-[24px]/[10px] font-extralight pt-2'>Wealthup is backed and supported by</h2>
+        <h1 className='text-[36px]/[50px] font-semibold pt-5'>Backed by the best</h1>
+        <h2 className='text-[18px]/[10px]  pt-3'>Wealthup is backed and supported by</h2>
         <div className='flex justify-center py-6'>
         <Image
               src="/13.png"
               alt="Logo"
-              width={600}
+              width={500}
               height={164}
             />
         </div>
       </div>
 
       <div className='flex-col bg-[#0A5783] text-[#FFFFFF] font-poppins'>
-        <h1 className=' pt-3 text-center text-[40px]/[60px] font-extrabold'>Transforming Lives- Financially!</h1>
-        <div className='flex justify-center items-center'>
+        <h1 className=' pt-5 text-center text-[32px]/[48px] font-bold'>Transforming Lives- Financially!</h1>
+        <div className='flex max-h-min justify-center items-center'>
           <div className=' flex items-start mx-10'>
             <Image src="/Pic.png" alt="User" className='mr-5' width={100} height={100} />
             <div>
@@ -69,12 +69,12 @@ export default function Home() {
               <p className=' max-w-[416px]'>"I was afraid to learn about investments and savings because it seemed to fly over my head, but Ankit was extremely patient and walked me through everything... I now feel more confident to handle my own money."</p>
             </div>
           </div>
-          <Image src="/11.png" alt="User" width={380} height={380} />
+          <Image src="/11.png" alt="User" width={360} height={360} />
         </div>
       </div>
 
-      <div className=' flex justify-center bg-gradient-to-br from-[#159C98] to-[#138F9E]'>
-        <Image src="/logos.png" alt="logos" width={1200} height={163} />
+      <div className='py-1 flex justify-center bg-gradient-to-br from-[#159C98] to-[#138F9E]'>
+        <Image src="/logos.png" alt="logos" width={900} height={163} />
       </div>
 
       <div className="text-center my-4">
