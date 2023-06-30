@@ -7,7 +7,7 @@ export default function Home() {
 
   const [task, setTask] = useState('');
   const [search, setSearch] = useState('');
-  const [todos, setTodos] = useState([]);
+  const [todos, setTodos] = useState<any[]>([]);
 
   const handleTaskChange = (e) => {
     e.preventDefault();
